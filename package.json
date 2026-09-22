@@ -1,0 +1,44 @@
+{
+  "name": "tartish-pos-electron",
+  "version": "0.1.0",
+  "description": "Car Wash POS Desktop App - local-first Electron demo",
+  "main": "electron/main.js",
+  "private": true,
+  "scripts": {
+    "build": "node esbuild.config.js",
+    "watch": "node esbuild.config.js --watch",
+    "start": "electron .",
+    "dev": "node esbuild.config.js && electron .",
+    "dist": "node esbuild.config.js && electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^32.0.0",
+    "electron-builder": "^25.1.8",
+    "esbuild": "^0.24.0"
+  },
+  "dependencies": {
+    "@fluentui/react-components": "^9.54.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "build": {
+    "appId": "com.tartish.pos",
+    "productName": "Tartish POS",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "electron/**/*",
+      "dist/**/*",
+      "index.html",
+      "package.json"
+    ],
+    "win": {
+      "target": "zip"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}
