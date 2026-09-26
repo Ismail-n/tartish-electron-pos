@@ -1,5 +1,6 @@
 const esbuild = require("esbuild");
 const path = require("path");
+const { sassPlugin } = require("esbuild-sass-plugin");
 
 const watch = process.argv.includes("--watch");
 
@@ -8,10 +9,18 @@ const options = {
   bundle: true,
   outfile: path.join(__dirname, "dist", "renderer.js"),
   jsx: "automatic",
-  loader: { ".js": "jsx", ".svg": "dataurl" },
+  loader: {
+    ".js": "jsx",
+    ".svg": "dataurl",
+    ".webp": "dataurl",
+    ".png": "dataurl",
+    ".jpg": "dataurl",
+    ".jpeg": "dataurl",
+  },
   target: "chrome120",
   sourcemap: true,
   logLevel: "info",
+  plugins: [sassPlugin()],
 };
 
 async function run() {

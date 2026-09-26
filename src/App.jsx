@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from "react";
 import SplashScreen from "./components/SplashScreen.jsx";
 import LoginScreen from "./components/LoginScreen.jsx";
+import PosLaneOverview from "./components/PosLaneOverview.jsx";
 
 const VIEW = {
   SPLASH: "splash",
@@ -22,5 +23,5 @@ export default function App() {
     return <LoginScreen onLoginSuccess={handleLoginSuccess} />;
   }
 
-  return <div style={{ padding: 24, color: "#fff" }}>POS dashboard coming soon Updated.</div>;
+  return <PosLaneOverview />;
 }

@@ -1,0 +1,150 @@
+.container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0f0f0f;
+}
+
+.card {
+  width: 480px;
+  min-height: 476px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 24px;
+  gap: 8px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04), 0 12px 32px rgba(0, 0, 0, 0.18);
+
+  .logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: #e8305f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+
+    img,
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+
+  .brandName {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+
+  .heading {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 4px 0 0;
+  }
+
+  .subheading {
+    font-size: 14px;
+    color: #7a7a7a;
+    margin: 0 0 20px;
+  }
+
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .fieldLabel {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .inputWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    .inputIcon {
+      position: absolute;
+      left: 16px;
+      display: flex;
+      align-items: center;
+      color: #9a9a9a;
+      pointer-events: none;
+    }
+
+    .toggleIcon {
+      position: absolute;
+      right: 16px;
+      display: flex;
+      align-items: center;
+      color: #9a9a9a;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+    }
+  }
+
+  .pillInput {
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 999px;
+    background-color: #f1f1f3;
+    padding: 0 16px;
+    font-size: 15px;
+    color: #1a1a1a;
+    box-sizing: border-box;
+
+    &::placeholder {
+      color: #a0a0a0;
+    }
+
+    &:focus {
+      outline: 2px solid #4fc3e8;
+      outline-offset: 1px;
+    }
+  }
+
+  .pillInput--withLeftIcon {
+    padding-left: 44px;
+  }
+
+  .pillInput--withRightIcon {
+    padding-right: 44px;
+  }
+
+  .submitButton {
+    margin-top: 8px;
+    width: 100%;
+    height: 50px;
+    border-radius: 999px;
+    background-color: #4fc3e8;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+
+    &:hover {
+      background-color: #3bb5dd;
+    }
+  }
+}
