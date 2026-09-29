@@ -1,0 +1,214 @@
+@use "common" as *;
+
+.inStoreVehicles {
+  padding: 24px 32px 40px;
+  .statusPill {
+    border-radius: 8px;
+    padding: 6px 12px;
+  }
+}
+
+.inStoreBreadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  .breadcrumbBack {
+    padding: 12px;
+    background-color: #ffffff;
+    border: 1px solid #e6e8ec;
+    border-radius: 6px;
+  }
+}
+
+.breadcrumbBack {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  color: $color-text-muted;
+  @include inter(600);
+  font-size: 14px;
+  cursor: pointer;
+
+  &:hover {
+    color: $color-text-dark;
+  }
+}
+
+.breadcrumbDivider {
+  color: #c4c7cc;
+  font-size: 14px;
+}
+
+.breadcrumbCurrent {
+  @include inter(700);
+  font-size: 14px;
+  color: $color-text-dark;
+}
+
+.vehicleList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.vehicleCard {
+  background: $color-bg-white;
+  border: 1.5px solid #53c3eb;
+  border-radius: 16px;
+  padding: 16px 20px;
+  cursor: pointer;
+}
+
+.vehicleCardRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.vehicleThumb {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: linear-gradient(160deg, #101d16, #0a3324 60%, #0f0f0f);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.vehicleCardInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.vehiclePlate {
+  @include inter(700);
+  font-size: 16px;
+  color: #0F0F0F;
+}
+
+.vehicleMeta {
+  font-size: 13px;
+  color: $color-text-light;
+  margin-top: 2px;
+  p {
+    margin: 0;
+    @include inter(500);
+  }
+  span {
+    @include inter(400);
+  }
+}
+
+.statusPill {
+  flex-shrink: 0;
+  @include inter(600);
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: $radius-pill;
+}
+
+.statusPill--washing {
+  background: $color-primary;
+  color: $color-bg-white;
+}
+
+.statusPill--refundRequested {
+  background: $color-accent;
+  color: $color-bg-white;
+}
+
+.vehicleCardExpanded {
+  margin-top: 16px;
+  cursor: default;
+}
+
+.vehicleDetailBox {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background: #f6f7f9;
+  border-radius: 10px;
+  padding: 14px 18px;
+  margin-bottom: 16px;
+}
+
+.vehicleDetailItem {
+  @include inter(500);
+  font-size: 14px;
+  color: $color-text-muted;
+}
+
+.vehicleDetailLabel {
+  color: $color-text-muted;
+}
+
+.vehicleDetailValue {
+  @include inter(700);
+  color: $color-text-dark;
+}
+
+.vehicleDetailValue--link {
+  color: $color-primary;
+}
+
+.upgradePlanLink {
+  margin-left: auto;
+  @include inter(700);
+  font-size: 14px;
+  color: $color-accent;
+  text-decoration: underline;
+}
+
+.vehicleActions {
+  display: flex;
+  gap: 12px;
+}
+
+.vehicleActionBtnIcon {
+  width: 40px;
+  height: 40px;
+}
+
+.vehicleActionBtn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  height: 56x;
+  border-radius: 10px;
+  background: transparent;
+  @include inter(800);
+  cursor: pointer;
+  font-size: 18px;
+  text-align: center;
+
+  &:hover {
+    filter: brightness(0.97);
+  }
+}
+
+.vehicleActionBtn--add {
+  border: 1.5px solid #2fb673;
+  color: #2fb673;
+}
+
+.vehicleActionBtn--refund {
+  border: 1.5px solid #e0a91d;
+  color: #e0a91d;
+}
+
+.vehicleActionBtn--rewash {
+  border: 1.5px solid #e8722f;
+  color: #e8722f;
+}
+
+.vehicleActionBtn--cancel {
+  border: 1.5px solid $color-accent;
+  color: $color-accent;
+}

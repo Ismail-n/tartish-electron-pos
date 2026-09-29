@@ -1,0 +1,266 @@
+// Shared design tokens
+$color-text-dark: #1a1a1a;
+$color-text-muted: #6b6f76;
+$color-text-light: #9a9da3;
+$color-border: #e6e7ea;
+$color-bg-white: #fff;
+
+$color-primary: #2f9fe8;
+$color-primary-hover: #2589cf;
+$color-accent: #e8305f;
+$color-accent-hover: #d12951;
+$color-info: #4fc3e8;
+$color-info-hover: #3bb5dd;
+$color-primary-text: #53c3eb;
+
+$radius-pill: 999px;
+
+// Usage: @include inter(500);
+@mixin inter($weight: 400) {
+  font-family: "Inter", sans-serif;
+  font-weight: $weight;
+}
+
+// Usage: @include ppNeueMontreal(500);
+@mixin ppNeueMontreal($weight: 400) {
+  font-family: "PPNeueMontreal", sans-serif;
+  font-weight: $weight;
+}
+
+// Shared TopBarBrand styles (used by LoginScreen and Poslaneoverview)
+.topBar {
+  display: flex;
+  align-items: center;
+  padding: 12px 24px;
+  background: $color-bg-white;
+  border-bottom: 1px solid $color-border;
+}
+
+.topBarBrand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.topBarLogo {
+  width: 32px;
+  height: 32px;
+}
+
+.topBarBrandName {
+  font-size: 14px;
+  font-weight: 700;
+  color: $color-text-dark;
+}
+
+.topBarBrandTime {
+  margin-left: auto;
+  font-size: 14px;
+  font-weight: 600;
+  color: $color-text-dark;
+}
+
+.topBarBrandDivider {
+  width: 1px;
+  align-self: stretch;
+  background: $color-border;
+  margin: 0 4px;
+}
+
+.topBarDateTime {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: $color-text-muted;
+
+  .dot {
+    color: #c4c7cc;
+  }
+}
+
+.topBarDateTimeValue {
+  font-weight: 700;
+  color: $color-text-dark;
+}
+
+.langToggle {
+  border: none;
+  background: #dcecfc;
+  color: #2f7fd6;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: $radius-pill;
+  cursor: pointer;
+}
+
+.txHistoryBtnIcon {
+  width: 22px;
+  height: 22px;
+}
+
+.txHistoryBtn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  border: none;
+  background: transparent;
+  color: #737380;
+  font-size: 13px;
+  cursor: pointer;
+  @include inter(500);
+  font-size: 14px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+
+.topBarUser {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.topBarUserTrigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.userAvatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: $color-primary;
+  color: $color-bg-white;
+  font-size: 12px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.userAvatar--lg {
+  width: 40px;
+  height: 40px;
+  font-size: 14px;
+}
+
+.userMeta {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.userName {
+  font-size: 13px;
+  font-weight: 600;
+  color: $color-text-dark;
+}
+
+.userStation {
+  font-size: 11px;
+  color: $color-text-light;
+}
+
+.userMenuOverlay {
+  position: fixed;
+  inset: 0;
+  background: #0f0f0f66;
+  z-index: 19;
+}
+
+.userMenu {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 240px;
+  background: $color-bg-white;
+  border-radius: 14px;
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.04),
+    0 12px 32px rgba(0, 0, 0, 0.16);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  z-index: 20;
+}
+
+.userMenuHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 12px;
+}
+
+.userMenuDivider {
+  height: 1px;
+  background: $color-border;
+  margin: 8px -16px;
+}
+
+.userMenuItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: none;
+  background: transparent;
+  padding: 10px 4px;
+  font-size: 14px;
+  font-weight: 500;
+  color: $color-text-dark;
+  cursor: pointer;
+  border-radius: 8px;
+  text-align: left;
+
+  &:hover {
+    background: #f5f5f6;
+  }
+}
+
+.userMenuItem--danger {
+  color: $color-accent;
+}
+
+// Shared pill-shaped buttons
+.btnPrimary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 16px;
+  border-radius: $radius-pill;
+  border: none;
+  background: $color-primary;
+  color: $color-bg-white;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    background: $color-primary-hover;
+  }
+}
+
+.btnOutline {
+  height: 38px;
+  padding: 0 16px;
+  border-radius: $radius-pill;
+  border: 1px solid #d5d7db;
+  background: $color-bg-white;
+  color: $color-text-dark;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+
+  &:hover {
+    background: #f5f5f6;
+  }
+}

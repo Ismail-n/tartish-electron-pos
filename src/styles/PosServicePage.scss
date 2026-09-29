@@ -1,0 +1,353 @@
+@use "common" as *;
+
+.posServicePage {
+  display: grid;
+  grid-template-columns: 650px 1fr;
+  gap: 1px;
+  align-items: start;
+  background: $color-border;
+  min-height: calc(100vh - 65px);
+}
+
+.posServiceMain {
+  background: $color-bg-white;
+  padding: 32px;
+  max-width: 650px;
+  height: 100%;
+}
+
+.posServiceSidebar {
+  background: #eef0f3;
+  padding: 24px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  height: 100%;
+}
+
+.plateRegisteredHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.plateRegisteredLabel {
+  @include inter(500);
+  font-size: 13px;
+  color: $color-text-muted;
+}
+
+.plateRegisteredValue {
+  @include inter(700);
+  font-size: 18px;
+  color: $color-text-dark;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.plateRegisteredDivider {
+  color: #0f0f0f;
+  font-weight: 400;
+}
+
+.customerFields {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.customerField {
+  flex: 1;
+}
+
+.customerFieldLabel {
+  display: block;
+  @include inter(600);
+  font-size: 13px;
+  color: $color-text-dark;
+  margin-bottom: 8px;
+}
+
+.customerFieldValue {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  border-radius: 100px;
+  background: #f3f5f9;
+  @include inter(700);
+  font-size: 15px;
+  color: $color-text-dark;
+}
+
+.washTypeToggle {
+  display: flex;
+  background: #f0f1f3;
+  border-radius: 100px;
+  padding: 4px;
+  gap: 4px;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.washTypeBtn {
+  border: none;
+  background: transparent;
+  padding: 10px 20px;
+  border-radius: 100px;
+  @include inter(700);
+  font-size: 14px;
+  color: $color-text-muted;
+  cursor: pointer;
+  width: 50%;
+}
+
+.washTypeBtn--active {
+  background: $color-bg-white;
+  color: $color-text-dark;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.serviceList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.serviceOption {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+  border: 2px solid #e6e8ec;
+  border-radius: 16px;
+  background: $color-bg-white;
+  padding: 12px 20px;
+  cursor: pointer;
+}
+
+.serviceOption--selected {
+  border-color: #53c3eb;
+}
+
+.serviceRadio {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid #777e90;
+  background: $color-bg-white;
+}
+
+.serviceRadio--checked {
+  border-color: $color-primary-text;
+  background: $color-primary-text;
+}
+
+.serviceRadioCheck {
+  width: 12px;
+  height: 12px;
+}
+
+.serviceOptionBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.serviceOptionName {
+  @include inter(700);
+  color: #0f0f0f;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.serviceOptionDesc {
+  @include inter(400);
+  color: #777e90;
+  font-size: 14px;
+}
+
+.serviceOptionPrice {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  @include inter(700);
+  color: #0f0f0f;
+  font-size: 20px;
+}
+
+.orderSummaryPrice {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  @include inter(700);
+  font-size: 16px;
+}
+
+.discountRow {
+  display: flex;
+  gap: 10px;
+}
+
+.discountInput {
+  flex: 1;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid $color-border;
+  background: $color-bg-white;
+  padding: 0 14px;
+  @include inter(500);
+  font-size: 14px;
+  color: $color-text-dark;
+
+  &::placeholder {
+    color: $color-text-light;
+  }
+}
+
+.discountApplyBtn {
+  height: 44px;
+  padding: 0 20px;
+  border: none;
+  border-radius: 10px;
+  background: $color-primary;
+  color: $color-bg-white;
+  @include inter(700);
+  font-size: 14px;
+  cursor: pointer;
+
+  &:hover {
+    background: $color-primary-hover;
+  }
+}
+
+.interiorCleanOption {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 56px;
+  padding: 0 16px;
+  border-radius: 10px;
+  border: 1px solid $color-border;
+  background: $color-bg-white;
+  @include inter(700);
+  font-size: 14px;
+  color: #0f0f0f;
+  cursor: pointer;
+  text-align: left;
+}
+
+.orderSummary {
+  background: transparent;
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+
+.orderSummaryTitle {
+  @include inter(700);
+  color: $color-text-dark;
+  margin: 0 0 24px;
+
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: 0%;
+}
+
+.orderSummaryRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @include inter(500);
+  color: #0f0f0f;
+  padding: 6px 0;
+  font-size: 16px;
+}
+
+.orderSummaryRow--total {
+  @include inter(700);
+  font-size: 18px;
+}
+
+.orderSummaryDivider {
+  height: 1px;
+  background: $color-border;
+  margin: 8px 0;
+}
+
+.paymentMethods {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.paymentMethodCard {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  background: $color-bg-white;
+  cursor: pointer;
+  text-align: left;
+}
+
+.paymentMethodCard--active {
+  border-color: $color-primary-text;
+}
+
+.paymentMethodIcon {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  background: #f7f7f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paymentMethodIconImg {
+  width: 20px;
+  height: 20px;
+}
+
+.paymentMethodText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.paymentMethodLabel {
+  @include inter(700);
+  color: #0f0f0f;
+  font-size: 18px;
+}
+
+.paymentMethodSubtitle {
+  @include inter(400);
+  color: #777e90;
+  font-size: 14px;
+}
+
+.continueBtn {
+  height: 52px;
+  border: none;
+  border-radius: 12px;
+  background: #a7abb3;
+  color: $color-bg-white;
+  @include inter(700);
+  font-size: 16px;
+  cursor: pointer;
+
+  &:hover {
+    background: #93979f;
+  }
+}

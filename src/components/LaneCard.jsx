@@ -1,6 +1,6 @@
 import React from "react";
 import LicensePlateInput from "./Licenseplateinput.jsx";
-import "../styles/laneCard.scss";
+import "../styles/Lanecard.scss";
 
 export default function LaneCard({
   title,
@@ -8,6 +8,7 @@ export default function LaneCard({
   statusVariant = "waiting",
   plateNumbers,
   plateLetters,
+  language,
   onPlateChange,
   vehicleName,
   proceedEnabled = true,
@@ -23,6 +24,7 @@ export default function LaneCard({
       <LicensePlateInput
         numbers={plateNumbers}
         letters={plateLetters}
+        language={language}
         onChange={onPlateChange}
       />
 

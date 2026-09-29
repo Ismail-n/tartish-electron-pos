@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Button, MessageBar } from "@fluentui/react-components";
 import "../styles/loginScreen.scss";
-import logo from "../assets/images/tartishIconSmall.svg";
 import splashImage from "../assets/images/tartishSplashBg.webp";
+import logo from "../assets/images/tartishIconSmall.svg";
+import TopBarBrand from "./TopBarBrand.jsx";
 
 const DEMO_USERNAME = "admin@tartish.com";
 const DEMO_PASSWORD = "admin";
@@ -24,16 +25,29 @@ export default function LoginScreen({ onLoginSuccess }) {
   }
 
   return (
-    <div className="container" style={{ backgroundImage: `url(${splashImage})`, backgroundSize: "cover", backgroundPosition: "center" }}>
-      <div className="card">
-        <div className="logo">
-          <img src={logo} alt="Tartish Logo" />
-        </div>
-        <div className="brandName">Tartish</div>
-        <div className="heading">POS Login</div>
-        <div className="subheading">Enter credentials to start shift</div>
+    <div className="loginScreen">
+      <header className="topBar">
+        <TopBarBrand name="Tartish POS" showTime />
+      </header>
 
-        <form onSubmit={handleSubmit}>
+      <div
+        className="container"
+        style={{
+          backgroundImage: `url(${splashImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="card">
+          <div className="headingWrapper">
+            <img src={logo} alt="Tartish" className="headingLogo" />
+            <div className="heading">Sign in to POS</div>
+          </div>
+          <div className="subheading">
+            Sign in to access your station and start your shift.
+          </div>
+
+          <form onSubmit={handleSubmit}>
           <div>
             <label className="fieldLabel" htmlFor="email">
               Email
@@ -57,8 +71,20 @@ export default function LoginScreen({ onLoginSuccess }) {
             <div className="inputWrapper">
               <span className="inputIcon">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                  <rect x="5" y="11" width="14" height="9" rx="2" stroke="currentColor" strokeWidth="1.8" />
-                  <path d="M8 11V7a4 4 0 0 1 8 0v4" stroke="currentColor" strokeWidth="1.8" />
+                  <rect
+                    x="5"
+                    y="11"
+                    width="14"
+                    height="9"
+                    rx="2"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                  />
+                  <path
+                    d="M8 11V7a4 4 0 0 1 8 0v4"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                  />
                 </svg>
               </span>
               <input
@@ -82,7 +108,13 @@ export default function LoginScreen({ onLoginSuccess }) {
                       stroke="currentColor"
                       strokeWidth="1.8"
                     />
-                    <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.8" />
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="3"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                    />
                   </svg>
                 ) : (
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
@@ -91,8 +123,18 @@ export default function LoginScreen({ onLoginSuccess }) {
                       stroke="currentColor"
                       strokeWidth="1.8"
                     />
-                    <circle cx="12" cy="12" r="3" stroke="currentColor" strokeWidth="1.8" />
-                    <path d="M3 3l18 18" stroke="currentColor" strokeWidth="1.8" />
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="3"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                    />
+                    <path
+                      d="M3 3l18 18"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                    />
                   </svg>
                 )}
               </button>
@@ -105,6 +147,7 @@ export default function LoginScreen({ onLoginSuccess }) {
             Sign In
           </Button>
         </form>
+        </div>
       </div>
     </div>
   );

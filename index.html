@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta
       http-equiv="Content-Security-Policy"
-      content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline';"
+      content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; font-src 'self';"
     />
     <title>Tartish POS</title>
     <style>
@@ -23,5 +23,10 @@
   <body>
     <div id="root"></div>
     <script src="dist/renderer.js"></script>
+    <script>
+      if (location.hostname === "localhost" || location.hostname === "127.0.0.1") {
+        new EventSource("/esbuild").addEventListener("change", () => location.reload());
+      }
+    </script>
   </body>
 </html>

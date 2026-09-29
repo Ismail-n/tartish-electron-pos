@@ -1,0 +1,15 @@
+@use "fonts";
+
+body {
+  font-family: "Inter", "Segoe UI", sans-serif;
+}
+
+// Buttons, inputs, selects, and textareas don't inherit font-family from
+// body by default (browser UA stylesheet gives them their own font) —
+// this makes them inherit like every other element.
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}

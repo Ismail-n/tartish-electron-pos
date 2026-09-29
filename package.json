@@ -9,6 +9,7 @@
     "watch": "node esbuild.config.js --watch",
     "start": "electron .",
     "dev": "node esbuild.config.js && electron .",
+    "dev:web": "node esbuild.serve.js",
     "dist": "node esbuild.config.js && electron-builder"
   },
   "devDependencies": {
@@ -22,6 +23,7 @@
     "@fluentui/react-components": "^9.54.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-router-dom": "^6.30.6",
     "scheduler": "^0.28.0"
   },
   "build": {

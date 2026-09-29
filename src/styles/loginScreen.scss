@@ -1,6 +1,21 @@
-.container {
+@use "common" as *;
+
+.loginScreen {
   height: 100vh;
   width: 100vw;
+  display: flex;
+  flex-direction: column;
+}
+
+.topBar {
+  .topBarBrand {
+    width: 100%;
+  }
+}
+
+.container {
+  flex: 1;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8,8 +23,7 @@
 }
 
 .card {
-  width: 480px;
-  min-height: 476px;
+  max-width: 480px;
   padding: 40px;
   display: flex;
   flex-direction: column;
@@ -17,43 +31,30 @@
   background-color: #fff;
   border-radius: 24px;
   gap: 8px;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04), 0 12px 32px rgba(0, 0, 0, 0.18);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.04),
+    0 12px 32px rgba(0, 0, 0, 0.18);
 
-  .logo {
-    width: 44px;
-    height: 44px;
-    border-radius: 12px;
-    background: #e8305f;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 4px;
-
-    img,
-    svg {
-      width: 24px;
-      height: 24px;
-    }
-  }
-
-  .brand {
+  .headingWrapper {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 4px;
+    margin: 4px 0 0;
   }
 
-  .brandName {
-    font-size: 22px;
-    font-weight: 700;
-    color: #1a1a1a;
+  .headingLogo {
+    width: 24px;
+    height: 14px;
+    padding: 7px 9px;
+    border-radius: 10px;
+    background: #e8305f;
+    box-sizing: content-box;
   }
 
   .heading {
     font-size: 20px;
     font-weight: 700;
     color: #1a1a1a;
-    margin: 4px 0 0;
   }
 
   .subheading {
@@ -70,11 +71,13 @@
   }
 
   .fieldLabel {
-    font-size: 13px;
-    font-weight: 600;
-    color: #1a1a1a;
+    color: #0f0f0f;
     margin-bottom: 6px;
     display: block;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 100%;
+    letter-spacing: 0%;
   }
 
   .inputWrapper {
@@ -116,7 +119,7 @@
     box-sizing: border-box;
 
     &::placeholder {
-      color: #a0a0a0;
+      color: #777e90;
     }
 
     &:focus {

@@ -2,8 +2,6 @@ const esbuild = require("esbuild");
 const path = require("path");
 const { sassPlugin } = require("esbuild-sass-plugin");
 
-const watch = process.argv.includes("--watch");
-
 const options = {
   entryPoints: [path.join(__dirname, "src", "index.jsx")],
   bundle: true,
@@ -27,13 +25,15 @@ const options = {
 };
 
 async function run() {
-  if (watch) {
-    const ctx = await esbuild.context(options);
-    await ctx.watch();
-    console.log("esbuild watching for changes...");
-  } else {
-    await esbuild.build(options);
-  }
+  const ctx = await esbuild.context(options);
+  await ctx.watch();
+
+  const { host, port } = await ctx.serve({
+    servedir: __dirname,
+    port: 5173,
+  });
+
+  console.log(`Dev server running at http://${host === "0.0.0.0" ? "localhost" : host}:${port}`);
 }
 
 run().catch(() => process.exit(1));

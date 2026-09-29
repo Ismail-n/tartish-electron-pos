@@ -1,40 +1,13 @@
 import React, { useRef, useState } from "react";
-import "../styles/licensePlateInput.scss";
-
-const ARABIC_DIGITS = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
-
-// Simplified Saudi plate Latin-to-Arabic letter mapping for display purposes.
-// Verify against the official transliteration table before using in production.
-const LATIN_TO_ARABIC_LETTER = {
-  A: "ا",
-  B: "ب",
-  J: "ح",
-  D: "د",
-  R: "ر",
-  S: "س",
-  X: "ص",
-  T: "ط",
-  K: "ك",
-  L: "ل",
-  Z: "م",
-  N: "ن",
-  G: "ق",
-  H: "ه",
-  V: "و",
-  U: "ھ",
-  E: "ع",
-};
-
-function toArabicDigit(char) {
-  if (char === "" || char == null) return "";
-  const digit = Number(char);
-  return Number.isNaN(digit) ? "" : ARABIC_DIGITS[digit];
-}
-
-function toArabicLetter(char) {
-  if (!char) return "";
-  return LATIN_TO_ARABIC_LETTER[char.toUpperCase()] || "";
-}
+import "../styles/Licenseplateinput.scss";
+import editLicensePlateIcon from "../assets/images/editLicencePlate.svg";
+import emblemSaudiArabiaIcon from "../assets/images/emblemSaudiArabia.svg";
+import checkIcon from "../assets/images/checkIcon.svg";
+import {
+  toArabicDigit,
+  toArabicLetter,
+  LATIN_TO_ARABIC_LETTER,
+} from "../utils/plateTransliteration.js";
 
 const NUMBER_SLOTS = 4;
 const LETTER_SLOTS = 3;
@@ -44,40 +17,78 @@ export default function LicensePlateInput({
   letters = "",
   onChange,
   disabled = false,
+  cameraFailed = true,
 }) {
-  const [editing, setEditing] = useState(false);
-  const inputRefs = useRef([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [draftLetters, setDraftLetters] = useState([]);
+  const [draftNumbers, setDraftNumbers] = useState([]);
+  const letterInputRefs = useRef([]);
+  const numberInputRefs = useRef([]);
 
-  const numberChars = Array.from({ length: NUMBER_SLOTS }, (_, i) => numbers[i] || "");
-  const letterChars = Array.from({ length: LETTER_SLOTS }, (_, i) => letters[i] || "");
-  const allChars = [...numberChars, ...letterChars];
-  const totalSlots = NUMBER_SLOTS + LETTER_SLOTS;
-
-  function commitChange(nextChars) {
-    const nextNumbers = nextChars.slice(0, NUMBER_SLOTS).join("");
-    const nextLetters = nextChars.slice(NUMBER_SLOTS).join("");
-    onChange && onChange(nextNumbers, nextLetters);
+  const numberChars = Array.from(
+    { length: NUMBER_SLOTS },
+    (_, i) => numbers[i] || "",
+  );
+  const letterChars = Array.from(
+    { length: LETTER_SLOTS },
+    (_, i) => letters[i] || "",
+  );
+  function commitChange(nextNumberChars, nextLetterChars) {
+    onChange && onChange(nextNumberChars.join(""), nextLetterChars.join(""));
   }
 
-  function handleCellChange(index, rawValue) {
-    const isLetterSlot = index >= NUMBER_SLOTS;
-    const cleaned = isLetterSlot
-      ? rawValue.replace(/[^a-zA-Z]/g, "").slice(-1).toUpperCase()
-      : rawValue.replace(/[^0-9]/g, "").slice(-1);
+  function openModal() {
+    setDraftLetters(Array.from({ length: LETTER_SLOTS }, () => ""));
+    setDraftNumbers(Array.from({ length: NUMBER_SLOTS }, () => ""));
+    setModalOpen(true);
+  }
 
-    const next = [...allChars];
+  function closeModal() {
+    setModalOpen(false);
+  }
+
+  function handleConfirm() {
+    commitChange(draftNumbers, draftLetters);
+    setModalOpen(false);
+  }
+
+  function handleLetterChange(index, rawValue) {
+    const upper = rawValue.slice(-1).toUpperCase();
+    const cleaned = LATIN_TO_ARABIC_LETTER[upper] ? upper : "";
+
+    const next = [...draftLetters];
     next[index] = cleaned;
-    commitChange(next);
+    setDraftLetters(next);
 
-    if (cleaned && index < totalSlots - 1) {
-      const nextInput = inputRefs.current[index + 1];
+    if (cleaned && index < LETTER_SLOTS - 1) {
+      const nextInput = letterInputRefs.current[index + 1];
       if (nextInput) nextInput.focus();
     }
   }
 
-  function handleKeyDown(index, event) {
-    if (event.key === "Backspace" && !allChars[index] && index > 0) {
-      const prevInput = inputRefs.current[index - 1];
+  function handleNumberChange(index, rawValue) {
+    const cleaned = rawValue.replace(/[^0-9]/g, "").slice(-1);
+
+    const next = [...draftNumbers];
+    next[index] = cleaned;
+    setDraftNumbers(next);
+
+    if (cleaned && index < NUMBER_SLOTS - 1) {
+      const nextInput = numberInputRefs.current[index + 1];
+      if (nextInput) nextInput.focus();
+    }
+  }
+
+  function handleLetterKeyDown(index, event) {
+    if (event.key === "Backspace" && !draftLetters[index] && index > 0) {
+      const prevInput = letterInputRefs.current[index - 1];
+      if (prevInput) prevInput.focus();
+    }
+  }
+
+  function handleNumberKeyDown(index, event) {
+    if (event.key === "Backspace" && !draftNumbers[index] && index > 0) {
+      const prevInput = numberInputRefs.current[index - 1];
       if (prevInput) prevInput.focus();
     }
   }
@@ -86,25 +97,10 @@ export default function LicensePlateInput({
     const isDivider = index === NUMBER_SLOTS - 1;
     const cellClass = `plateCell plateCell--latin${isDivider ? " plateCell--divider" : ""}`;
 
-    if (!editing || disabled) {
-      return (
-        <div key={`latin-${index}`} className={cellClass}>
-          {char || ""}
-        </div>
-      );
-    }
-
     return (
-      <input
-        key={`latin-${index}`}
-        ref={(el) => (inputRefs.current[index] = el)}
-        className={cellClass}
-        value={char}
-        maxLength={1}
-        inputMode={index < NUMBER_SLOTS ? "numeric" : "text"}
-        onChange={(e) => handleCellChange(index, e.target.value)}
-        onKeyDown={(e) => handleKeyDown(index, e)}
-      />
+      <div key={`latin-${index}`} className={cellClass}>
+        {char || ""}
+      </div>
     );
   }
 
@@ -121,45 +117,127 @@ export default function LicensePlateInput({
     );
   }
 
+  function renderPlatePreview(letterCells, numberCells) {
+    const previewChars = [...numberCells, ...letterCells];
+    return (
+      <div className="plateWrapInner">
+        <div className="plate">
+          <div className="plateGrid">
+            {previewChars.map((char, index) => renderArabicCell(char, index))}
+            {previewChars.map((char, index) => renderLatinCell(char, index))}
+          </div>
+          <div className="plateKsa">
+            <img
+              src={emblemSaudiArabiaIcon}
+              alt="Tartish"
+              className="headingLogo"
+            />
+            <div className="plateKSAEmblemName">السعودية</div>
+
+            <span className="plateKsaLabel">KSA</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="plateWrap">
+      {renderPlatePreview(letterChars, numberChars)}
       {!disabled && (
         <button
           type="button"
           className="plateEditBtn"
-          aria-label={editing ? "Done editing plate" : "Edit plate"}
-          onClick={() => setEditing((prev) => !prev)}
+          aria-label="Edit plate"
+          onClick={openModal}
         >
-          {editing ? (
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-              <path d="M4 12l5 5L20 6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          ) : (
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-              <path
-                d="M4 20h4l10.5-10.5a2.1 2.1 0 0 0-3-3L5 17v3Z"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinejoin="round"
-              />
-            </svg>
-          )}
+          <img
+            src={editLicensePlateIcon}
+            alt="Tartish"
+            className="edit_license_plate"
+          />
         </button>
       )}
 
-      <div className="plate">
-        <div className="plateGrid">
-          {allChars.map((char, index) => renderArabicCell(char, index))}
-          {allChars.map((char, index) => renderLatinCell(char, index))}
+      {modalOpen && (
+        <div className="plateModalOverlay" onClick={closeModal}>
+          <div className="plateModal" onClick={(e) => e.stopPropagation()}>
+            <div className="plateModalHeader">
+              <h2 className="plateModalTitle">Enter Plate Manually</h2>
+              {cameraFailed && (
+                <span className="plateModalBadge">
+                  <span className="plateModalBadgeDot" />
+                  Camera read failed
+                </span>
+              )}
+            </div>
+
+            <div className="plateModalField">
+              <div className="plateModalLabel">
+                Plate Letters ({LETTER_SLOTS})
+              </div>
+              <div className="plateModalRow">
+                {draftLetters.map((char, index) => (
+                  <input
+                    key={`draft-letter-${index}`}
+                    ref={(el) => (letterInputRefs.current[index] = el)}
+                    className="plateModalInput"
+                    value={char}
+                    placeholder="A"
+                    maxLength={1}
+                    inputMode="text"
+                    onChange={(e) => handleLetterChange(index, e.target.value)}
+                    onKeyDown={(e) => handleLetterKeyDown(index, e)}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="plateModalField">
+              <div className="plateModalLabel">
+                Plate Number ({NUMBER_SLOTS})
+              </div>
+              <div className="plateModalRow">
+                {draftNumbers.map((char, index) => (
+                  <input
+                    key={`draft-number-${index}`}
+                    ref={(el) => (numberInputRefs.current[index] = el)}
+                    className="plateModalInput"
+                    value={char}
+                    placeholder={String(index + 1)}
+                    maxLength={1}
+                    inputMode="numeric"
+                    onChange={(e) => handleNumberChange(index, e.target.value)}
+                    onKeyDown={(e) => handleNumberKeyDown(index, e)}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="plateModalPreview">
+              {renderPlatePreview(draftLetters, draftNumbers)}
+            </div>
+
+            <div className="plateModalActions">
+              <button
+                type="button"
+                className="plateModalBtn plateModalBtn--cancel"
+                onClick={closeModal}
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                className="plateModalBtn plateModalBtn--confirm"
+                onClick={handleConfirm}
+              >
+                Confirm &amp; Submit
+                <img src={checkIcon} alt="" className="plateModalBtnIcon" />
+              </button>
+            </div>
+          </div>
         </div>
-        <div className="plateKsa">
-          <span className="plateKsaLabel">KSA</span>
-          <svg className="plateKsaFlag" width="16" height="11" viewBox="0 0 16 11" fill="none">
-            <rect width="16" height="11" rx="1" fill="#0B6E4F" />
-            <rect x="2" y="4.5" width="8" height="1.2" fill="#fff" />
-          </svg>
-        </div>
-      </div>
+      )}
     </div>
   );
 }
