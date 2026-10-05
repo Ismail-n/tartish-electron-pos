@@ -4,6 +4,8 @@ import LaneCard from "./LaneCard.jsx";
 import TopBarBrand from "./TopBarBrand.jsx";
 import InStoreVehicles from "./InStoreVehicles.jsx";
 import PosServicePage from "./PosServicePage.jsx";
+import PaymentSuccessPage from "./PaymentSuccessPage.jsx";
+import TransactionHistoryPage from "./TransactionHistoryPage.jsx";
 import "../styles/Poslaneoverview.scss";
 
 const INITIAL_LANES = [
@@ -95,7 +97,23 @@ function ServiceRouteView({ lanes }) {
       plateNumbers={lane?.plateNumbers}
       plateLetters={lane?.plateLetters}
       onBack={() => navigate("/dashboard")}
-      onContinue={() => navigate("/dashboard")}
+      onContinue={() => navigate(`/dashboard/service/${laneId}/success`)}
+    />
+  );
+}
+
+function PaymentSuccessRouteView({ lanes }) {
+  const { laneId } = useParams();
+  const navigate = useNavigate();
+  const lane = lanes.find((l) => l.id === laneId);
+
+  return (
+    <PaymentSuccessPage
+      vehiclePlate={
+        lane ? `${lane.plateNumbers} ${lane.plateLetters} (KSA)` : undefined
+      }
+      onPrintReceipt={() => window.print()}
+      onGoHome={() => navigate("/dashboard")}
     />
   );
 }
@@ -134,6 +152,7 @@ export default function PosLaneOverview({ onLogout }) {
           onLogout={onLogout}
           language={language}
           onToggleLanguage={handleToggleLanguage}
+          onTransactionHistory={() => navigate("transactions")}
         />
       </header>
 
@@ -158,6 +177,11 @@ export default function PosLaneOverview({ onLogout }) {
           path="service/:laneId"
           element={<ServiceRouteView lanes={lanes} />}
         />
+        <Route
+          path="service/:laneId/success"
+          element={<PaymentSuccessRouteView lanes={lanes} />}
+        />
+        <Route path="transactions" element={<TransactionHistoryPage />} />
       </Routes>
     </div>
   );

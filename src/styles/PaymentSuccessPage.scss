@@ -1,0 +1,155 @@
+@use "common" as *;
+
+.paymentSuccessPage {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 24px;
+  align-items: start;
+  padding: 32px;
+}
+
+.paymentSuccessPanel {
+  background: $color-bg-white;
+  border-radius: 20px;
+  padding: 80px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-height: 560px;
+}
+
+.paymentSuccessIcon {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: #e7f7ee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.paymentSuccessTitle {
+  @include inter(700);
+  font-size: 28px;
+  color: $color-text-dark;
+  margin: 0 0 10px;
+}
+
+.paymentSuccessSubtitle {
+  @include inter(500);
+  font-size: 16px;
+  color: $color-text-muted;
+  margin: 0 0 48px;
+}
+
+.paymentSuccessPrintBtn {
+  width: 100%;
+  max-width: 480px;
+  height: 56px;
+  border: none;
+  border-radius: $radius-pill;
+  background: $color-primary;
+  color: $color-bg-white;
+  @include inter(700);
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 14px;
+
+  &:hover {
+    background: $color-primary-hover;
+  }
+}
+
+.paymentSuccessHomeBtn {
+  width: 100%;
+  max-width: 480px;
+  height: 56px;
+  border: 1px solid $color-primary;
+  border-radius: $radius-pill;
+  background: $color-bg-white;
+  color: $color-primary;
+  @include inter(700);
+  font-size: 16px;
+  cursor: pointer;
+
+  &:hover {
+    background: #eef7fd;
+  }
+}
+
+.receiptPanel {
+  background: $color-bg-white;
+  border-radius: 20px;
+  padding: 28px 24px;
+}
+
+.receiptBrand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.receiptBrandIcon {
+  width: 28px;
+  height: 28px;
+}
+
+.receiptBrandName {
+  @include inter(700);
+  font-size: 20px;
+  color: $color-text-dark;
+}
+
+.receiptDivider {
+  margin: 16px 0;
+  border: 1px dashed #E6E8EC;
+  &.center {
+    border-style: solid;
+  }
+}
+
+.receiptRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  @include inter(500);
+  font-size: 14px;
+}
+
+.receiptLabel {
+  color: $color-text-muted;
+}
+
+.receiptValue {
+  @include inter(700);
+  color: $color-text-dark;
+}
+
+.receiptRow--item {
+  @include inter(700);
+  color: $color-text-dark;
+  font-size: 14px;
+}
+
+.receiptItemPrice {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.receiptRow--total {
+  @include inter(700);
+  font-size: 18px;
+  color: $color-text-dark;
+}
+
+.receiptTotalPrice {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: $color-primary;
+}

@@ -9,6 +9,7 @@ export default function TopBarBrand({
   onLogout,
   language = "en",
   onToggleLanguage,
+  onTransactionHistory,
 }) {
   const [time, setTime] = useState(() => new Date());
   const [userMenuOpen, setUserMenuOpen] = useState(false);
@@ -58,7 +59,7 @@ export default function TopBarBrand({
       )}
       {showDateTime && (
         <>
-          <button type="button" className="txHistoryBtn">
+          <button type="button" className="txHistoryBtn" onClick={onTransactionHistory}>
             <img src={clockIcon} alt="" className="txHistoryBtnIcon" />
             Transaction History
           </button>
