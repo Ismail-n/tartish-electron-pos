@@ -3,11 +3,10 @@ import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import SplashScreen from "./components/SplashScreen.jsx";
 import LoginScreen from "./components/LoginScreen.jsx";
 import PosLaneOverview from "./components/Poslaneoverview.jsx";
-
-const AUTH_STORAGE_KEY = "tartish-pos.isLoggedIn";
+import { getAuthToken, clearAuthToken } from "./api/tokenStore.js";
 
 function isAuthenticated() {
-  return localStorage.getItem(AUTH_STORAGE_KEY) === "true";
+  return Boolean(getAuthToken());
 }
 
 function SplashRoute() {
@@ -24,7 +23,6 @@ function LoginRoute() {
   const navigate = useNavigate();
 
   const handleLoginSuccess = useCallback(() => {
-    localStorage.setItem(AUTH_STORAGE_KEY, "true");
     navigate("/dashboard", { replace: true });
   }, [navigate]);
 
@@ -35,7 +33,7 @@ function DashboardRoute() {
   const navigate = useNavigate();
 
   const handleLogout = useCallback(() => {
-    localStorage.removeItem(AUTH_STORAGE_KEY);
+    clearAuthToken();
     navigate("/login", { replace: true });
   }, [navigate]);
 
